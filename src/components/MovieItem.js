@@ -28,7 +28,7 @@ MovieItem.propTypes = {
     movie: PropTypes.object.isRequired
 }
 const componentStyle = {
-    borderBottom: '1px rgb(179, 247, 54) solid',
+    borderTop: '1px rgb(179, 247, 54) solid',
     paddingLeft: '10px',
     paddingTop: '30px',
     paddingBottom: '30px',

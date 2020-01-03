@@ -1,4 +1,5 @@
 import React from 'react';
+import DatePicker from 'react-date-picker'
 import MoviesSchedule from './components/MoviesSchedule';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 import CinemaHall from './components/CinemaHall';
@@ -31,12 +32,15 @@ class App extends React.Component{
         image: 'https://s3.party.pl/seriale/the-crown-zwiastun-528294-MT.jpg',
         time: '18:05'   
         }
-    ]
+    ],
+    date: new Date()
   }
 
   details = (id) => {
     console.log(id);
   }
+
+  onChange = date => this.setState({date});
 
  render() { 
       return (
@@ -47,9 +51,12 @@ class App extends React.Component{
           </header>
           <Route exact path="/" render={props => (
             <div style={container}>
-            <p style={{color: 'white'}}>
-              Zapraszamy do rezerwacji biletów na seanse!
-            </p>
+              <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                <p style={{color: 'white'}}>
+                  Zapraszamy do rezerwacji biletów na seanse!
+                </p>
+                <DatePicker onChange={this.onChange} value={this.state.date}/>
+              </div>
               <MoviesSchedule movies={this.state.movies} details={this.details}/>
             </div>
           )} />
@@ -66,6 +73,7 @@ const headerStyle = {
   display: 'flex',
   justifyContent: 'center'
 }
+
 const container = {
   margin: '80px'
 }
