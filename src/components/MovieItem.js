@@ -9,15 +9,19 @@ export class MovieItem extends Component {
     }
 
     render() {
-        const {id, title, image, time} = this.props.movie;
+        const {_id, title, description, url} = this.props.movie;
+        const hour = this.props.hour;
         return (
             <div style={componentStyle}>
                 <div style={{display: 'flex', justifyContent: 'flex-start'}}>
-                    <img src={image} alt="Movie poster" height="100" width="100" />
-                    <h4 style={titleStyle}>{title}</h4>
+                    <img src={url} alt="Movie poster" height="100" width="100" />
+                    <div style={{margin: '0 25px'}}>
+                        <h4 style={{fontSize: '22px', marginBlockStart: '0'}}>{title}</h4>
+                        <p>{description}</p>
+                    </div>
                 </div>
                 <div>
-                    <Link to="/cinemaHall" style={btnStyle}>{time}</Link>
+                    <Link to="/cinemaHall" style={btnStyle}>{hour}</Link>
                 </div>
             </div>
         )
@@ -33,15 +37,8 @@ const componentStyle = {
     paddingTop: '30px',
     paddingBottom: '30px',
     color: 'rgb(255,255, 255)',
-    //background: '#cddcdd',
     display: 'flex',
     justifyContent: 'space-between'
-   // display: 'inline-block'
-}
-
-const titleStyle={
-    margin: '0 25px',
-    fontSize: '22px'
 }
 
 const btnStyle = {

@@ -4,9 +4,13 @@ import PropTypes from 'prop-types';
 
 class MovieSchedule extends React.Component{
 
+  findHour(id){
+     return this.props.cinemaShows.find(show => show.movie == id).hour;
+   }
+ 
  render() { 
       return this.props.movies.map((movie) => (
-        <MovieItem key={movie.id} movie={movie} details={this.props.details}/>
+        <MovieItem key={movie._id} movie={movie} hour={this.findHour(movie._id)}/>
       ));
   }
 }
