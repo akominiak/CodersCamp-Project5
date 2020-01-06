@@ -1,5 +1,5 @@
+const Joi = require('joi');
 const mongoose = require('mongoose');
-require('mongoose-type-url');
 
 const movie = new mongoose.Schema({
     movieId: {
@@ -22,13 +22,24 @@ const movie = new mongoose.Schema({
         max: 200
     },
     url: {
-        type: mongoose.SchemaTypes.Url,
+        type: String,
         required: true,
         min: 1,
         max: 100
     }
 });
-
 const Movie = mongoose.model('Movie', movie);
 
+function validateMovie(newMovie) {
+
+    const schema = {
+        movieId: Joi.Number().min(1).max(100).required().unique(),
+        name: Joi.string().min(1).max(60).required().unique(),
+        url: Joi.string().min(1).max(100).required()
+    };
+
+    return Joi.validate(newMovie, schema);
+}
+
+module.exports.validate = validateMovie;
 module.exports.Movie = Movie;

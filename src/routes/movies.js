@@ -1,19 +1,32 @@
 
-const {Movie} = require('../models/movie');
+const {Movie, validate} = require('../models/movie');
+const express = require('express');
+const router = express.Router();
+
+router.get('/', async (req, res) => {
+    const movies = await Movie.find();
+    res.send(movies);
+});
 
 
-async function createMovie(IdFilmu,nazwa,opis,Url){
-    const movie= new Movie({
-        movieId: IdFilmu,
-        name: nazwa,  
-        desctiption: opis,
-        url: Url 
+router.post('/', async (req, res) => {
+
+    const newMovie = new Movie({
+        MovieId: req.body.MovieId,
+        name: req.body.name,
+        description: req.body.description,
+        url: req.body.url
     });
-    try{const result =await movie.save();
-        console.log(result);}
-     
-     catch (ex) {
-         console.log(ex.message);
-     }
-}  
-module.exports.createMovie=createMovie;
+    console.log(newMovie);
+    await newMovie.save();
+    res.send(newMovie);
+});
+
+
+router.delete('/:id', async (req, res) => {
+    const movie = await Movie.findByIdAndRemove(req.params.id);
+    if (!movie) return res.status(404).send('Movie not found');
+    res.send(movie);
+});
+
+    module.exports = router;

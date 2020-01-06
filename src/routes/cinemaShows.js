@@ -1,18 +1,32 @@
 
-const {Show} = require('../models/cinemaShow');
+const {Show, validate} = require('../models/cinemaShow');
+const express = require('express');
+const router = express.Router();
+
+router.get('/', async (req, res) => {
+    const shows = await Show.find();
+    res.send(shows);
+});
 
 
-async function createShow(movieId,date,hour){
-    const show= new Show({
-        movieId: movieId,  
-        date: date,
-        hour: hour 
+router.post('/', async (req, res) => {
+    const newShow = new Show({
+        movieId: req.body.MovieId,
+        date: req.body.date,
+        hour: req.body.hour
     });
-    try{const result =await show.save();
-        console.log(result);}
-     
-     catch (ex) {
-         console.log(ex.message);
-     }
-}  
-module.exports.createShow=createShow;
+    console.log(newShow);
+    await newShow.save();
+    res.send(newShow);
+});
+
+
+
+router.delete('/:id', async (req, res) => {
+    const show = await Show.findByIdAndRemove(req.params.id);
+    if (!show) return res.status(404).send('Show not found');
+    res.send(show);
+});
+
+
+module.exports = router;
