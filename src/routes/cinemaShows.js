@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const newShow = new Show({
-        movieId: req.body.MovieId,
+        movie: req.body.movie,
         date: req.body.date,
         hour: req.body.hour
     });

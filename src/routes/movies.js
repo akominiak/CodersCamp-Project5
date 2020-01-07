@@ -12,8 +12,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 
     const newMovie = new Movie({
-        MovieId: req.body.MovieId,
-        name: req.body.name,
+        title: req.body.title,
         description: req.body.description,
         url: req.body.url
     });
@@ -29,4 +28,4 @@ router.delete('/:id', async (req, res) => {
     res.send(movie);
 });
 
-    module.exports = router;
+module.exports = router;

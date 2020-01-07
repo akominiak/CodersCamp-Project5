@@ -2,14 +2,7 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const movie = new mongoose.Schema({
-    movieId: {
-        type: Number,
-        required: true,
-        unique: true,
-        min: 1,
-        max: 100
-    },
-    name: {
+    title: {
         type: String,
         required: true,
         unique: true,
@@ -33,8 +26,7 @@ const Movie = mongoose.model('Movie', movie);
 function validateMovie(newMovie) {
 
     const schema = {
-        movieId: Joi.Number().min(1).max(100).required().unique(),
-        name: Joi.string().min(1).max(60).required().unique(),
+        title: Joi.string().min(1).max(60).required(),
         url: Joi.string().min(1).max(100).required()
     };
 

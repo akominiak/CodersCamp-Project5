@@ -2,8 +2,8 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 
 const show = new mongoose.Schema({
-    movieId: {
-        type: Number,
+    movie: {
+        type: String,
         required: true,
         min: 1,
         max: 100
@@ -24,7 +24,7 @@ const show = new mongoose.Schema({
 function validateShow(newShow) {
 
     const schema = {
-        movieId: Joi.Number().min(1).max(100).required(),
+        movie: Joi.string().min(1).max(100).required(),
         date: Joi.string().min(1).max(10),
         hour: Joi.string().min(1).max(6)
 
